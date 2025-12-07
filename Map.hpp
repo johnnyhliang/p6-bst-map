@@ -107,7 +107,7 @@ public:
     Iterator it = find(k);
     if(it == end()) {
       auto result = bst.insert({k, Value_type()});
-      return result.first->second;
+      return result->second;
     }
     return it->second;
   }
@@ -122,9 +122,9 @@ public:
   //           the value true.
   std::pair<Iterator, bool> insert(const Pair_type &val) {
     Iterator it = find(val.first);
-    if(it != end) return {it, false};
-    Iterator new = bst.insert(val);
-    return {new, true};
+   if(it != end()) return {it, false};  
+   Iterator inserted = bst.insert(val);  
+   return {inserted, true};
   }
 
   // EFFECTS : Returns an iterator to the first key-value pair in this Map.

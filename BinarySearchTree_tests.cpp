@@ -24,7 +24,19 @@ TEST(test_init) {
     ASSERT_TRUE(tree.max_element() == tree.end());
     ASSERT_TRUE(tree.min_greater_than(0) == tree.end());
 }
-
+TEST(test_sorting_fr) {
+    BinarySearchTree<int> tree;
+        vector<int> values = {50, 25, 75, 10, 30, 60, 90, 5, 15, 27, 40, 55, 65, 85, 95};
+        for (int val : values) {
+            tree.insert(val);
+            ASSERT_TRUE(tree.check_sorting_invariant());
+        }
+        
+        
+        ASSERT_EQUAL(tree.size(), 15u);
+        ASSERT_TRUE(tree.check_sorting_invariant());
+    
+}
 TEST(test_one) {
     BinarySearchTree<int> tree;
     tree.insert(5);
@@ -172,6 +184,51 @@ TEST(test_assignment) {
 
     ASSERT_TRUE(oss1.str() == oss2.str());
     ASSERT_TRUE(tree2.find(100) == tree2.end());
+}
+
+TEST(test_find_deep_tree) {
+    BinarySearchTree<int> tree;
+    
+    tree.insert(50);
+    tree.insert(25);
+    tree.insert(75);
+    tree.insert(10);
+    tree.insert(35);
+    tree.insert(60);
+    tree.insert(90);
+    tree.insert(5);
+    tree.insert(30);
+    
+    
+    ASSERT_EQUAL(*tree.find(5), 5);
+    ASSERT_EQUAL(*tree.find(30), 30);
+    ASSERT_EQUAL(*tree.find(60), 60);
+    ASSERT_EQUAL(*tree.find(90), 90);
+    
+
+    ASSERT_TRUE(tree.find(100) == tree.end());
+    ASSERT_TRUE(tree.find(1) == tree.end());
+    ASSERT_TRUE(tree.find(40) == tree.end());
+}
+
+TEST(test_min_greater_than_comprehensive) {
+    BinarySearchTree<int> tree;
+    tree.insert(50);
+    tree.insert(25);
+    tree.insert(75);
+    tree.insert(10);
+    tree.insert(35);
+    tree.insert(60);
+    tree.insert(90);
+    
+    
+    ASSERT_EQUAL(*tree.min_greater_than(50), 60);
+    
+    ASSERT_EQUAL(*tree.min_greater_than(35), 50);
+    ASSERT_EQUAL(*tree.min_greater_than(25), 35);
+    ASSERT_EQUAL(*tree.min_greater_than(10), 25);
+    ASSERT_TRUE(tree.min_greater_than(90) == tree.end());
+    ASSERT_EQUAL(*tree.min_greater_than(0), 10);
 }
 
 TEST_MAIN()
